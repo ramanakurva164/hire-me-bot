@@ -1,0 +1,27 @@
+name: Contribution Art
+
+on:
+  schedule:
+    - cron: "0 0 * * *"  # runs daily (UTC)
+  workflow_dispatch:
+
+jobs:
+  draw:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Git
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+
+      - name: Run script
+        run: node script.js
+
+      - name: Push changes
+        run: |
+          git pull
+          git push
